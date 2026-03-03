@@ -6,6 +6,7 @@ export interface PortalParams {
     memberId: string
     memberName?: string
     eventTypeTemplateIds?: string[]
+    action?: "setup" | `availability-schedule/${string}` | `event-type/${string}` | "default"
 }
 
 export interface PortalResponse {
@@ -29,7 +30,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * });
  * ```
  */
-export async function getPortalUrl({ apiKey, workspaceId, memberId, memberName, eventTypeTemplateIds }: PortalParams): Promise<PortalResponse> {
+export async function getPortalUrl({ apiKey, workspaceId, memberId, memberName, eventTypeTemplateIds, action }: PortalParams): Promise<PortalResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/portal`,
@@ -38,6 +39,7 @@ export async function getPortalUrl({ apiKey, workspaceId, memberId, memberName, 
                 memberId,
                 memberName,
                 eventTypeTemplateIds,
+                action,
             },
             {
                 headers: {
