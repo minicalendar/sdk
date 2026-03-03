@@ -1,0 +1,20 @@
+{
+    "name": "@minicalendar/sdk",
+    "version": "0.1.1",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "axios": "^1.7.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.0.0",
+        "typescript": "^5.6.0"
+    },
+    "files": [
+        "dist"
+    ],
+    "type": "module"
+}
