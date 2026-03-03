@@ -1,38 +1,39 @@
 import axios, { AxiosError } from "axios"
 
-export interface ConfigParams {
+export interface PauseParams {
     apiKey: string
     workspaceId: string
     memberId: string
+    paused: boolean
 }
 
-export interface ConfigResponse {
-    eventTypes: { id: string; title: string; description: string }[]
-    availabilitySchedules: { id: string; name: string }[]
-    isPaused: boolean | null
+export interface PauseResponse {
+    isPaused: boolean
 }
 
 const BASE_URL = "https://api.minicalendar.com/v1"
 
 /**
- * Returns the event types and availability schedules a user has setup.
+ * Pauses or unpauses bookings for a member.
  *
  * Example:
  * ```ts
- * const { eventTypes, availabilitySchedules } = await getPortalUrl({
+ * await pause({
  *   apiKey: "apiKey",
  *   workspaceId: "workspaceId",
- *   memberId: "memberId"
+ *   memberId: "memberId",
+ *   paused: true
  * });
  * ```
  */
-export async function getConfig({ apiKey, workspaceId, memberId }: ConfigParams): Promise<ConfigResponse> {
+export async function pause({ apiKey, workspaceId, memberId, paused }: PauseParams): Promise<PauseResponse> {
     try {
         const result = await axios.post(
-            `${BASE_URL}/config`,
+            `${BASE_URL}/pause`,
             {
                 workspaceId,
                 memberId,
+                paused,
             },
             {
                 headers: {
@@ -41,7 +42,7 @@ export async function getConfig({ apiKey, workspaceId, memberId }: ConfigParams)
             },
         )
 
-        return result.data as ConfigResponse
+        return result.data as PauseResponse
     } catch (err) {
         const axiosErr = err as AxiosError
 
