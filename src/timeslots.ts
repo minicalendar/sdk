@@ -30,16 +30,26 @@ interface EventType {
           }
 }
 
-export interface TimeslotsParams {
+interface TimeslotsBaseParams {
     apiKey: string
     workspaceId: string
-    eventTypeId: string
     rangeStart: string
     rangeEnd: string
 }
 
+interface TimeslotsParamsEventType {
+    eventTypeId: string
+}
+
+interface TimeslotsParamsTemplateMember {
+    templateId: string
+    memberId: string
+}
+
+export type TimeslotsParams = TimeslotsBaseParams & (TimeslotsParamsEventType | TimeslotsParamsTemplateMember)
+
 export interface TimeslotsResponse {
-    eventType: EventType
+    eventType: EventType | null
     timeslots: { start: string; end: string }[]
 }
 
@@ -47,8 +57,10 @@ const BASE_URL = "https://api.minicalendar.com/v1"
 
 /**
  * Returns a list of available timeslots for an event type within a given range.
+ * Will accept eventTypeId or templateId & memberId.
+ * Will return { eventType: null } if it doesn't exist.
  *
- * Example:
+ * Example with eventTypeId:
  * ```ts
  * const { timeslots, eventType } = await getTimeslots({
  *   apiKey: "apiKey",
@@ -59,15 +71,15 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * });
  * ```
  */
-export async function getTimeslots({ apiKey, workspaceId, eventTypeId, rangeStart, rangeEnd }: TimeslotsParams): Promise<TimeslotsResponse> {
+export async function getTimeslots({ apiKey, workspaceId, rangeStart, rangeEnd, ...params }: TimeslotsParams): Promise<TimeslotsResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/timeslots`,
             {
                 workspaceId,
-                eventTypeId,
                 rangeStart,
                 rangeEnd,
+                ...params,
             },
             {
                 headers: {
@@ -81,7 +93,8 @@ export async function getTimeslots({ apiKey, workspaceId, eventTypeId, rangeStar
         const axiosErr = err as AxiosError
 
         if (axiosErr.response) {
-            throw new Error(`MiniCalendar API error: ${axiosErr.response.status} - ${JSON.stringify(axiosErr.response.data)}`)
+            if ((axiosErr.response.data as any)?.c == "no-event-type") return { eventType: null, timeslots: [] }
+            else throw new Error(`MiniCalendar API error: ${axiosErr.response.status} - ${JSON.stringify(axiosErr.response.data)}`)
         }
 
         throw err

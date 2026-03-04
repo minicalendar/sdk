@@ -71,10 +71,21 @@ Returns a list of available timeslots for an event type within a given range.
 ```ts
 import { getTimeslots } from "@minicalendar/sdk"
 
+// With eventTypeId
 const { timeslots, eventType } = await getTimeslots({
     apiKey: process.env.MINICALENDAR_API_KEY!,
     workspaceId: "workspaceId",
     eventTypeId: "eventTypeId",
+    rangeStart: "1970-01-01T00:00:00.000Z",
+    rangeEnd: "1970-02-01T00:00:00.000Z",
+})
+
+// With templateId & memberId
+const { timeslots, eventType } = await getTimeslots({
+    apiKey: process.env.MINICALENDAR_API_KEY!,
+    workspaceId: "workspaceId",
+    templateId: "templateId",
+    memberId: "memberId",
     rangeStart: "1970-01-01T00:00:00.000Z",
     rangeEnd: "1970-02-01T00:00:00.000Z",
 })
