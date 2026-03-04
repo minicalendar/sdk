@@ -17,7 +17,7 @@ export interface PortalResponse {
 const BASE_URL = "https://api.minicalendar.com/v1"
 
 /**
- * Returns a short-lived portal URL for a user to set up scheduling.
+ * Returns a short-lived portal URL where a user can set up scheduling.
  *
  * Example:
  * ```ts
