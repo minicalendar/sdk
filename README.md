@@ -86,7 +86,7 @@ const { timeslots, eventType } = await getTimeslots({
     workspaceId: "workspaceId",
     templateId: "templateId",
     memberId: "memberId",
-    rangeStart: "1970-01-01T00:00:00.000Z",
-    rangeEnd: "1970-02-01T00:00:00.000Z",
+    start: "1970-01-01T00:00:00.000Z",
+    end: "1970-02-01T00:00:00.000Z",
 })
 ```
