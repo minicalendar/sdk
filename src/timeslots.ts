@@ -33,8 +33,8 @@ interface EventType {
 interface TimeslotsBaseParams {
     apiKey: string
     workspaceId: string
-    rangeStart: string
-    rangeEnd: string
+    start: string
+    end: string
 }
 
 interface TimeslotsParamsEventType {
@@ -50,7 +50,7 @@ export type TimeslotsParams = TimeslotsBaseParams & (TimeslotsParamsEventType | 
 
 export interface TimeslotsResponse {
     eventType: EventType | null
-    timeslots: { start: string; end: string }[]
+    timeslots: string[]
 }
 
 const BASE_URL = "https://api.minicalendar.com/v1"
@@ -66,19 +66,19 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  *   apiKey: "apiKey",
  *   workspaceId: "workspaceId",
  *   eventTypeId: "eventTypeId",
- *   rangeStart: "1970-01-01T00:00:00.000Z",
- *   rangeEnd: "1970-02-01T00:00:00.000Z",
+ *   start: "1970-01-01T00:00:00.000Z",
+ *   end: "1970-02-01T00:00:00.000Z",
  * });
  * ```
  */
-export async function getTimeslots({ apiKey, workspaceId, rangeStart, rangeEnd, ...params }: TimeslotsParams): Promise<TimeslotsResponse> {
+export async function getTimeslots({ apiKey, workspaceId, start, end, ...params }: TimeslotsParams): Promise<TimeslotsResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/timeslots`,
             {
                 workspaceId,
-                rangeStart,
-                rangeEnd,
+                start,
+                end,
                 ...params,
             },
             {
