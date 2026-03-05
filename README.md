@@ -72,7 +72,7 @@ Returns a list of available timeslots for an event type within a given range.
 import { getTimeslots } from "@minicalendar/sdk"
 
 // With eventTypeId
-const { timeslots, eventType } = await getTimeslots({
+const { timeslots, eventType, availabilitySchedule } = await getTimeslots({
     apiKey: process.env.MINICALENDAR_API_KEY!,
     workspaceId: "workspaceId",
     eventTypeId: "eventTypeId",
@@ -81,7 +81,7 @@ const { timeslots, eventType } = await getTimeslots({
 })
 
 // With templateId & memberId
-const { timeslots, eventType } = await getTimeslots({
+const { timeslots, eventType, availabilitySchedule } = await getTimeslots({
     apiKey: process.env.MINICALENDAR_API_KEY!,
     workspaceId: "workspaceId",
     templateId: "templateId",

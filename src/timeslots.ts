@@ -1,5 +1,28 @@
 import axios, { AxiosError } from "axios"
 
+interface AvailabilitySchedule {
+    name: string
+    week: {
+        monday: { start: string; end: string }[]
+        tuesday: { start: string; end: string }[]
+        wednesday: { start: string; end: string }[]
+        thursday: { start: string; end: string }[]
+        friday: { start: string; end: string }[]
+        saturday: { start: string; end: string }[]
+        sunday: { start: string; end: string }[]
+        // ISO times
+    }
+    holidays: {
+        name: string
+        start: string // ISO datetime
+        end: string // ISO datetime
+    }[]
+    notice: {
+        min: string // ISO duration
+        max: string // ISO duration
+    }
+}
+
 interface EventType {
     memberId: string
     templateId: string
@@ -50,6 +73,7 @@ export type TimeslotsParams = TimeslotsBaseParams & (TimeslotsParamsEventType | 
 
 export interface TimeslotsResponse {
     eventType: EventType | null
+    availabilitySchedule: AvailabilitySchedule | null
     timeslots: string[]
 }
 
@@ -93,7 +117,7 @@ export async function getTimeslots({ apiKey, workspaceId, start, end, ...params 
         const axiosErr = err as AxiosError
 
         if (axiosErr.response) {
-            if ((axiosErr.response.data as any)?.c == "no-event-type") return { eventType: null, timeslots: [] }
+            if ((axiosErr.response.data as any)?.c == "no-event-type") return { eventType: null, availabilitySchedule: null, timeslots: [] }
             else throw new Error(`MiniCalendar API error: ${axiosErr.response.status} - ${JSON.stringify(axiosErr.response.data)}`)
         }
 
