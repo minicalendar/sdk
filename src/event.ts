@@ -25,7 +25,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * })
  * ```
  */
-export async function listEvents({ apiKey, ...params }: GetEventParams): Promise<GetEventResponse> {
+export async function getEvent({ apiKey, ...params }: GetEventParams): Promise<GetEventResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/event`,

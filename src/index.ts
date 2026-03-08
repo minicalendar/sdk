@@ -4,3 +4,4 @@ export { pauseScheduling, type PauseSchedulingParams, type PauseSchedulingRespon
 export { getTimeslots, type GetTimeslotsParams, type GetTimeslotsResponse } from "./timeslots.js"
 export { bookEvent, type BookEventParams, type BookEventResponse } from "./book.js"
 export { listEvents, type ListEventsParams, type ListEventsResponse } from "./events.js"
+export { getEvent, type GetEventParams, type GetEventResponse } from "./event.js"
