@@ -90,3 +90,25 @@ const { timeslots, eventType, availabilitySchedule } = await getTimeslots({
     end: "1970-02-01T00:00:00.000Z",
 })
 ```
+
+### Book
+
+```ts
+import { book } from "@minicalendar/sdk"
+
+const { event } = await book({
+    apiKey: process.env.MINICALENDAR_API_KEY!,
+    workspaceId: "workspaceId",
+    eventTypeId: "eventTypeId",
+    start: "1970-01-01T00:00:00.000Z",
+    zone: "Europe/London",
+    guestDetails: {
+        memberId: "guestMemberId",
+        name: "",
+        email: "",
+        phone: "", // if the host calls the guest
+        address: "", // if it's the event location
+        notes: "", // optional
+    },
+})
+```

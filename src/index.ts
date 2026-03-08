@@ -2,3 +2,4 @@ export { getPortalUrl, type PortalParams, type PortalResponse } from "./portal.j
 export { getConfig, type ConfigParams, type ConfigResponse } from "./config.js"
 export { pause, type PauseParams, type PauseResponse } from "./pause.js"
 export { getTimeslots, type TimeslotsParams, type TimeslotsResponse } from "./timeslots.js"
+export { book, type BookParams, type BookResponse } from "./book.js"

@@ -86,7 +86,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  *
  * Example with eventTypeId:
  * ```ts
- * const { timeslots, eventType } = await getTimeslots({
+ * const { timeslots, eventType, availabilitySchedule } = await getTimeslots({
  *   apiKey: "apiKey",
  *   workspaceId: "workspaceId",
  *   eventTypeId: "eventTypeId",
