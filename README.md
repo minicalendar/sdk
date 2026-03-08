@@ -162,3 +162,38 @@ const { event } = await getEvent({
     eventId: "eventId",
 })
 ```
+
+### Cancel event
+
+Cancels an event
+
+`https://api.minicalendar.com/v1/cancel`
+
+```ts
+import { cancelEvent } from "@minicalendar/sdk"
+
+const { event } = await cancelEvent({
+    apiKey: process.env.MINICALENDAR_API_KEY!,
+    workspaceId: "workspaceId",
+    eventId: "eventId",
+    reason: "reason",
+    memberId: "memberId",
+})
+```
+
+### Reschedule event
+
+Reschedules an event
+
+`https://api.minicalendar.com/v1/reschedule`
+
+```ts
+import { rescheduleEvent } from "@minicalendar/sdk"
+
+const { event } = await rescheduleEvent({
+    apiKey: process.env.MINICALENDAR_API_KEY!,
+    workspaceId: "workspaceId",
+    eventId: "eventId",
+    start: "1970-01-01T00:00:00.000Z",
+})
+```

@@ -6,3 +6,4 @@ export { bookEvent, type BookEventParams, type BookEventResponse } from "./funct
 export { listEvents, type ListEventsParams, type ListEventsResponse } from "./functions/events.js"
 export { getEvent, type GetEventParams, type GetEventResponse } from "./functions/event.js"
 export { cancelEvent, type CancelEventParams, type CancelEventResponse } from "./functions/cancel.js"
+export { rescheduleEvent, type RescheduleEventParams, type RescheduleEventResponse } from "./functions/reschedule.js"
