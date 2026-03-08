@@ -30,25 +30,20 @@ export interface ListEventsResponse {
 const BASE_URL = "https://api.minicalendar.com/v1"
 
 /**
- * Books an event type and returns the event details.
- * Will accept eventTypeId or templateId & memberId.
+ * Returns a list of events.
  *
- * Example with eventTypeId:
+ * Example:
  * ```ts
- * const { event } = await book({
- *   apiKey: process.env.MINICALENDAR_API_KEY!,
- *   workspaceId: "workspaceId",
- *   eventTypeId: "eventTypeId",
- *   start: "1970-01-01T00:00:00.000Z",
- *   timezone: "Europe/London",
- *   guestDetails: {
- *     memberId: "guestMemberId",
- *     name: "",
- *     email: "",
- *     phone: "", // if the host calls the guest
- *     address: "", // if it's the event location
- *     notes: "", // optional
- *   },
+ * const { events } = await listEvents({
+ *     apiKey: process.env.MINICALENDAR_API_KEY!,
+ *     workspaceId: "workspaceId",
+ *     forEveryone: true,
+ *     limit: 50,
+ *     cursor: {
+ *         id: "previousEventId",
+ *         startsAt: 123456789,
+ *     },
+ *     getPastEvents: false,
  * })
  * ```
  */

@@ -146,3 +146,19 @@ const { events } = await listEvents({
     getPastEvents: false,
 })
 ```
+
+### Get event
+
+Returns an event
+
+`https://api.minicalendar.com/v1/event`
+
+```ts
+import { getEvent } from "@minicalendar/sdk"
+
+const { event } = await getEvent({
+    apiKey: process.env.MINICALENDAR_API_KEY!,
+    workspaceId: "workspaceId",
+    eventId: "eventId",
+})
+```
