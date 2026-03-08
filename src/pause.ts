@@ -1,24 +1,24 @@
 import axios, { AxiosError } from "axios"
 
-export interface PauseParams {
+export interface PauseSchedulingParams {
     apiKey: string
     workspaceId: string
     memberId: string
     paused: boolean
 }
 
-export interface PauseResponse {
+export interface PauseSchedulingResponse {
     isPaused: boolean
 }
 
 const BASE_URL = "https://api.minicalendar.com/v1"
 
 /**
- * Pauses or unpauses bookings for a member.
+ * Pauses or unpauses scheduling for a member.
  *
  * Example:
  * ```ts
- * await pause({
+ * await pauseScheduling({
  *   apiKey: "apiKey",
  *   workspaceId: "workspaceId",
  *   memberId: "memberId",
@@ -26,7 +26,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * });
  * ```
  */
-export async function pause({ apiKey, workspaceId, memberId, paused }: PauseParams): Promise<PauseResponse> {
+export async function pauseScheduling({ apiKey, workspaceId, memberId, paused }: PauseSchedulingParams): Promise<PauseSchedulingResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/pause`,
@@ -42,7 +42,7 @@ export async function pause({ apiKey, workspaceId, memberId, paused }: PausePara
             },
         )
 
-        return result.data as PauseResponse
+        return result.data as PauseSchedulingResponse
     } catch (err) {
         const axiosErr = err as AxiosError
 

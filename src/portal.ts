@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios"
 
-export interface PortalParams {
+export interface GetPortalUrlParams {
     apiKey: string
     workspaceId: string
     memberId: string
@@ -9,7 +9,7 @@ export interface PortalParams {
     action?: "setup" | `availability-schedule/${string}` | `event-type/${string}` | "default"
 }
 
-export interface PortalResponse {
+export interface GetPortalUrlResponse {
     /** Short-lived URL for the portal */
     url: string
 }
@@ -30,7 +30,14 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * });
  * ```
  */
-export async function getPortalUrl({ apiKey, workspaceId, memberId, memberName, eventTypeTemplateIds, action }: PortalParams): Promise<PortalResponse> {
+export async function getPortalUrl({
+    apiKey,
+    workspaceId,
+    memberId,
+    memberName,
+    eventTypeTemplateIds,
+    action,
+}: GetPortalUrlParams): Promise<GetPortalUrlResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/portal`,
@@ -48,7 +55,7 @@ export async function getPortalUrl({ apiKey, workspaceId, memberId, memberName, 
             },
         )
 
-        return result.data as PortalResponse
+        return result.data as GetPortalUrlResponse
     } catch (err) {
         const axiosErr = err as AxiosError
 

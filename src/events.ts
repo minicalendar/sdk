@@ -1,34 +1,30 @@
 import axios, { AxiosError } from "axios"
 import { Event } from "./types/index.js"
 
-interface BookEventBaseParams {
+interface ListEventsBaseParams {
     apiKey: string
     workspaceId: string
-    start: string
-    timezone: string
-    guestDetails: {
-        memberId: string
-        name: string
-        email: string
-        phone?: string
-        address?: string
-        notes?: string
-    }
+    cursor?: { startsAt: number; id: string }
+    limit?: number
+    getPastEvents?: boolean
 }
 
-interface BookEventParamsEventType {
-    eventTypeId: string
+interface ListEventsParamsForEveryone {
+    forEveryone: true
 }
 
-interface BookEventParamsTemplateMember {
-    templateId: string
+interface ListEventsParamsMemberId {
     memberId: string
 }
 
-export type BookEventParams = BookEventBaseParams & (BookEventParamsEventType | BookEventParamsTemplateMember)
+interface ListEventsParamsMemberIds {
+    memberIds: string[]
+}
 
-export interface BookEventResponse {
-    event: Event
+export type ListEventsParams = ListEventsBaseParams & (ListEventsParamsForEveryone | ListEventsParamsMemberId | ListEventsParamsMemberIds)
+
+export interface ListEventsResponse {
+    events: Event[]
 }
 
 const BASE_URL = "https://api.minicalendar.com/v1"
@@ -56,10 +52,10 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * })
  * ```
  */
-export async function bookEvent({ apiKey, ...params }: BookEventParams): Promise<BookEventResponse> {
+export async function listEvents({ apiKey, ...params }: ListEventsParams): Promise<ListEventsResponse> {
     try {
         const result = await axios.post(
-            `${BASE_URL}/book`,
+            `${BASE_URL}/events`,
             {
                 ...params,
             },
@@ -70,7 +66,7 @@ export async function bookEvent({ apiKey, ...params }: BookEventParams): Promise
             },
         )
 
-        return result.data as BookEventResponse
+        return result.data as ListEventsResponse
     } catch (err) {
         const axiosErr = err as AxiosError
 

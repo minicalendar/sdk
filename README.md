@@ -17,11 +17,13 @@ Before using the SDK:
 3. **Create an event type template**
 4. **Generate an API key**
 
-## API
+## Functions
 
 ### Portal
 
 Returns a short-lived portal URL where a user can set up scheduling.
+
+`https://api.minicalendar.com/v1/portal`
 
 ```ts
 import { getPortalUrl } from "@minicalendar/sdk"
@@ -39,6 +41,8 @@ const { url } = await getPortalUrl({
 
 Returns the config a user has set up.
 
+`https://api.minicalendar.com/v1/config`
+
 ```ts
 import { getConfig } from "@minicalendar/sdk"
 
@@ -49,14 +53,16 @@ const { eventTypes, availabilitySchedules, isPaused } = await getConfig({
 })
 ```
 
-### Pause
+### Pause scheduling
 
-Pauses or unpauses bookings for a user.
+Pauses or unpauses scheduling for a user.
+
+`https://api.minicalendar.com/v1/pause`
 
 ```ts
-import { pause } from "@minicalendar/sdk"
+import { pauseScheduling } from "@minicalendar/sdk"
 
-const { isPaused } = await pause({
+const { isPaused } = await pauseScheduling({
     apiKey: process.env.MINICALENDAR_API_KEY!,
     workspaceId: "workspaceId",
     memberId: "memberId",
@@ -64,9 +70,11 @@ const { isPaused } = await pause({
 })
 ```
 
-### Timeslots
+### Get timeslots
 
 Returns a list of available timeslots for an event type within a given range.
+
+`https://api.minicalendar.com/v1/timeslots`
 
 ```ts
 import { getTimeslots } from "@minicalendar/sdk"
@@ -91,17 +99,21 @@ const { timeslots, eventType, availabilitySchedule } = await getTimeslots({
 })
 ```
 
-### Book
+### Book event
+
+Books an event.
+
+`https://api.minicalendar.com/v1/book`
 
 ```ts
-import { book } from "@minicalendar/sdk"
+import { bookEvent } from "@minicalendar/sdk"
 
-const { event } = await book({
+const { event } = await bookEvent({
     apiKey: process.env.MINICALENDAR_API_KEY!,
     workspaceId: "workspaceId",
     eventTypeId: "eventTypeId",
     start: "1970-01-01T00:00:00.000Z",
-    zone: "Europe/London",
+    timezone: "Europe/London",
     guestDetails: {
         memberId: "guestMemberId",
         name: "",
@@ -110,5 +122,27 @@ const { event } = await book({
         address: "", // if it's the event location
         notes: "", // optional
     },
+})
+```
+
+### List events
+
+Lists events for everyone, for a member, or for a list of members.
+
+`https://api.minicalendar.com/v1/events`
+
+```ts
+import { listEvents } from "@minicalendar/sdk"
+
+const { events } = await listEvents({
+    apiKey: process.env.MINICALENDAR_API_KEY!,
+    workspaceId: "workspaceId",
+    forEveryone: true,
+    limit: 50,
+    cursor: {
+        id: "previousEventId",
+        startsAt: 123456789,
+    },
+    getPastEvents: false,
 })
 ```

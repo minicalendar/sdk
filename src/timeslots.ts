@@ -1,77 +1,25 @@
 import axios, { AxiosError } from "axios"
+import { AvailabilitySchedule, EventType } from "./types/index.js"
 
-interface AvailabilitySchedule {
-    name: string
-    week: {
-        monday: { start: string; end: string }[]
-        tuesday: { start: string; end: string }[]
-        wednesday: { start: string; end: string }[]
-        thursday: { start: string; end: string }[]
-        friday: { start: string; end: string }[]
-        saturday: { start: string; end: string }[]
-        sunday: { start: string; end: string }[]
-        // ISO times
-    }
-    holidays: {
-        name: string
-        start: string // ISO datetime
-        end: string // ISO datetime
-    }[]
-    notice: {
-        min: string // ISO duration
-        max: string // ISO duration
-    }
-}
-
-interface EventType {
-    memberId: string
-    templateId: string
-    type: "one-to-one"
-    title: string
-    description: string
-    duration: string
-    availabilityScheduleId: string
-    calendar: {
-        platform: "google_calendar" | "outlook"
-        connectionId: string
-        addEventsTo: string
-        checkForConflicts: string[]
-    }
-    location:
-        | {
-              type: "virtual"
-              platform: "google_meet" | "microsoft_teams" | "zoom"
-              connectionId: string
-          }
-        | {
-              type: "phone_call"
-              contact: { party: "host" | "dev"; number: string } | { party: "guest" }
-          }
-        | {
-              type: "in_person"
-              address: { party: "host" | "dev"; address: string } | { party: "guest" }
-          }
-}
-
-interface TimeslotsBaseParams {
+interface GetTimeslotsBaseParams {
     apiKey: string
     workspaceId: string
     start: string
     end: string
 }
 
-interface TimeslotsParamsEventType {
+interface GetTimeslotsParamsEventType {
     eventTypeId: string
 }
 
-interface TimeslotsParamsTemplateMember {
+interface GetTimeslotsParamsTemplateMember {
     templateId: string
     memberId: string
 }
 
-export type TimeslotsParams = TimeslotsBaseParams & (TimeslotsParamsEventType | TimeslotsParamsTemplateMember)
+export type GetTimeslotsParams = GetTimeslotsBaseParams & (GetTimeslotsParamsEventType | GetTimeslotsParamsTemplateMember)
 
-export interface TimeslotsResponse {
+export interface GetTimeslotsResponse {
     eventType: EventType | null
     availabilitySchedule: AvailabilitySchedule | null
     timeslots: string[]
@@ -95,7 +43,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * });
  * ```
  */
-export async function getTimeslots({ apiKey, workspaceId, start, end, ...params }: TimeslotsParams): Promise<TimeslotsResponse> {
+export async function getTimeslots({ apiKey, workspaceId, start, end, ...params }: GetTimeslotsParams): Promise<GetTimeslotsResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/timeslots`,
@@ -112,7 +60,7 @@ export async function getTimeslots({ apiKey, workspaceId, start, end, ...params 
             },
         )
 
-        return result.data as TimeslotsResponse
+        return result.data as GetTimeslotsResponse
     } catch (err) {
         const axiosErr = err as AxiosError
 

@@ -1,12 +1,12 @@
 import axios, { AxiosError } from "axios"
 
-export interface ConfigParams {
+export interface GetConfigParams {
     apiKey: string
     workspaceId: string
     memberId: string
 }
 
-export interface ConfigResponse {
+export interface GetConfigResponse {
     eventTypes: { id: string; title: string; description: string }[]
     availabilitySchedules: { id: string; name: string }[]
     isPaused: boolean | null
@@ -26,7 +26,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  * });
  * ```
  */
-export async function getConfig({ apiKey, workspaceId, memberId }: ConfigParams): Promise<ConfigResponse> {
+export async function getConfig({ apiKey, workspaceId, memberId }: GetConfigParams): Promise<GetConfigResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/config`,
@@ -41,7 +41,7 @@ export async function getConfig({ apiKey, workspaceId, memberId }: ConfigParams)
             },
         )
 
-        return result.data as ConfigResponse
+        return result.data as GetConfigResponse
     } catch (err) {
         const axiosErr = err as AxiosError
 
