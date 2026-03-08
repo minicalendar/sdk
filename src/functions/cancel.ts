@@ -1,31 +1,35 @@
 import axios, { AxiosError } from "axios"
-import { Event } from "./types/index.js"
+import { Event } from "../types/types.js"
 
-export interface GetEventParams {
+export interface CancelEventParams {
     apiKey: string
     workspaceId: string
     eventId: string
+    reason: string
+    memberId: string
 }
 
-export interface GetEventResponse {
+export interface CancelEventResponse {
     event: Event
 }
 
 const BASE_URL = "https://api.minicalendar.com/v1"
 
 /**
- * Returns an event.
+ * Cancels an event.
  *
  * Example:
  * ```ts
- * const { event } = await getEvent({
+ * const { event } = await cancelEvent({
  *   apiKey: process.env.MINICALENDAR_API_KEY!,
  *   workspaceId: "workspaceId",
  *   eventId: "eventId",
+ *   reason: "reason",
+ *   memberId: "memberId"
  * })
  * ```
  */
-export async function getEvent({ apiKey, ...params }: GetEventParams): Promise<GetEventResponse> {
+export async function cancelEvent({ apiKey, ...params }: CancelEventParams): Promise<CancelEventResponse> {
     try {
         const result = await axios.post(
             `${BASE_URL}/event`,
@@ -39,7 +43,7 @@ export async function getEvent({ apiKey, ...params }: GetEventParams): Promise<G
             },
         )
 
-        return result.data as GetEventResponse
+        return result.data as CancelEventResponse
     } catch (err) {
         const axiosErr = err as AxiosError
 

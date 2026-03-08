@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { Event } from "./types/index.js"
+import { Event } from "../types/types.js"
 
 interface ListEventsBaseParams {
     apiKey: string

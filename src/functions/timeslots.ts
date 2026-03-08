@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios"
-import { AvailabilitySchedule, EventType } from "./types/index.js"
+import { AvailabilitySchedule, EventType } from "../types/types.js"
 
 interface GetTimeslotsBaseParams {
     apiKey: string
