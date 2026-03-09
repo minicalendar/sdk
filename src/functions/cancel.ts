@@ -32,7 +32,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
 export async function cancelEvent({ apiKey, ...params }: CancelEventParams): Promise<CancelEventResponse> {
     try {
         const result = await axios.post(
-            `${BASE_URL}/event`,
+            `${BASE_URL}/cancel`,
             {
                 ...params,
             },

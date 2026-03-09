@@ -30,7 +30,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
 export async function rescheduleEvent({ apiKey, ...params }: RescheduleEventParams): Promise<RescheduleEventResponse> {
     try {
         const result = await axios.post(
-            `${BASE_URL}/event`,
+            `${BASE_URL}/reschedule`,
             {
                 ...params,
             },

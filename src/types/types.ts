@@ -6,6 +6,7 @@ export interface Event {
     title: string
     description?: string
 
+    startsAt: number
     start: string // ISO
     end: string // ISO
     timezone: string
