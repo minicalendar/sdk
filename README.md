@@ -211,12 +211,12 @@ const { event } = await addEvent({
     apiKey: process.env.MINICALENDAR_API_KEY!,
     workspaceId: "workspaceId",
     eventData: {
-        title: "title"
-        description: "description"
-        start: "1970-01-01T00:00:00.000"
-        end: "1970-01-01T01:00:00.000"
-        timezone: "Europe/London"
-        memberIds: ["memberId1", "memberId2"]
-    }
+        title: "title",
+        description: "description",
+        start: "1970-01-01T00:00:00.000",
+        end: "1970-01-01T01:00:00.000",
+        timezone: "Europe/London",
+        memberIds: ["memberId1", "memberId2"],
+    },
 })
 ```
