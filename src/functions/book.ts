@@ -39,7 +39,7 @@ const BASE_URL = "https://api.minicalendar.com/v1"
  *
  * Example with eventTypeId:
  * ```ts
- * const { event } = await book({
+ * const { event } = await bookEvent({
  *   apiKey: process.env.MINICALENDAR_API_KEY!,
  *   workspaceId: "workspaceId",
  *   eventTypeId: "eventTypeId",

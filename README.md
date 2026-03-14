@@ -149,7 +149,7 @@ const { events } = await listEvents({
 
 ### Get event
 
-Returns an event
+Returns an event.
 
 `https://api.minicalendar.com/v1/event`
 
@@ -165,7 +165,7 @@ const { event } = await getEvent({
 
 ### Cancel event
 
-Cancels an event
+Cancels an event.
 
 `https://api.minicalendar.com/v1/cancel`
 
@@ -183,7 +183,7 @@ const { event } = await cancelEvent({
 
 ### Reschedule event
 
-Reschedules an event
+Reschedules an event.
 
 `https://api.minicalendar.com/v1/reschedule`
 
@@ -195,5 +195,28 @@ const { event } = await rescheduleEvent({
     workspaceId: "workspaceId",
     eventId: "eventId",
     start: "1970-01-01T00:00:00.000Z",
+})
+```
+
+### Add event
+
+Adds an event.
+
+`https://api.minicalendar.com/v1/add-event`
+
+```ts
+import { addEvent } from "@minicalendar/sdk"
+
+const { event } = await addEvent({
+    apiKey: process.env.MINICALENDAR_API_KEY!,
+    workspaceId: "workspaceId",
+    eventData: {
+        title: "title"
+        description: "description"
+        start: "1970-01-01T00:00:00.000"
+        end: "1970-01-01T01:00:00.000"
+        timezone: "Europe/London"
+        memberIds: ["memberId1", "memberId2"]
+    }
 })
 ```
